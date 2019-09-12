@@ -1,0 +1,9 @@
+---
+
+kolab_packages:
+- epel-release
+- kolab
+
+kolab_repo_url: http://obs.kolabsys.com/repositories/Kolab:/16/CentOS_7/Kolab:16.repo
+kolab_repo_dest: /etc/yum.repos.d/Kolab:16.repo
+kolab_repo_key: https://ssl.kolabsys.com/community.asc

@@ -1,0 +1,20 @@
+---
+
+- name: Download Kolab Repo
+  get_url:
+    url: "{{ kolab_repo_url }}" 
+    dest: "{{ kolab_repo_dest }}"
+
+
+- name: Import GPG Key
+  rpm_key:
+    state: present
+    key: "{{ kolab_repo_key }}"
+
+- name: Install Packages
+  yum:
+    name: "{{ kolab_packages }}"
+    state: present
+
+- name: Setup Default Settings
+  command: "setup-kolab --without-ldap --with-openldap -e --mysqlserver=new -q "
