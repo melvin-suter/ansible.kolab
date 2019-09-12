@@ -25,10 +25,10 @@
     port: "{{ item }}"
     state: enabled
   with_items:
-  - 465
-  - 25
-  - 80
-  - 443
+  - 465/tcp
+  - 25/tcp
+  - 80/tcp
+  - 443/tcp
 
 - name: Reload Firewalld
   systemd:
