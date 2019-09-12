@@ -18,3 +18,20 @@
 
 - name: Setup Default Settings
   command: "setup-kolab --without-ldap --with-openldap -e --mysqlserver=new -q "
+
+
+- name: Setup Firewall Services
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+  with_items:
+  - 465
+  - 25
+  - 80
+  - 443
+
+- name: Reload Firewalld
+  systemd:
+    name: firewalld
+    state: restarted
+
