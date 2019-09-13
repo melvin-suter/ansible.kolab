@@ -14,5 +14,20 @@ galaxy_info:
   - kolab
   - mail
 
-dependencies: []
-
+dependencies:
+- role: common
+  vars:
+    mariadb_secure_installation: yes
+    mariadb_databases:
+      - name: "{{ kolab_mysql_name }}" 
+        state: present
+        collation: utf8_general_ci
+        encoding: utf8
+    mariadb_users_create:
+      - name: "{{ kolab_mysql_user }}" 
+        password: "{{ kolab_mysql_pass }}"
+        hosts:
+          - "localhost"
+        privs:
+          - "{{ kolab_mysql_name }}.*:ALL"          
+        append_privs: no
