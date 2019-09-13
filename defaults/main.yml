@@ -20,7 +20,7 @@ kolab_ldap_user_basedn: ou=Users,{{ kolab_ldap_basedn }}
 kolab_ldap_user_filter: (objectclass=inetorgperson)
 kolab_ldap_group_basedn: ou=Groups,{{ kolab_ldap_basedn }}
 kolab_ldap_group_filter: (|(objectclass=groupofuniquenames)(objectclass=groupofurls))
-kolab_ldap_shared_basedn: ou=Shared Folders,{{ kolab_ldap_basedn}
+kolab_ldap_shared_basedn: ou=Shared Folders,{{ kolab_ldap_basedn}}
 kolab_ldap_shared_filter: (objectclass=kolabsharedfolder)
 kolab_ldap_resource_basedn: ou=Resources,{{ kolab_ldap_basedn}}
 kolab_ldap_resource_filter: (|(objectclass=kolabsharedfolder)(objectclass=groupofuniquenames)(objectclass=groupofurls))
