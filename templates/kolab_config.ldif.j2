@@ -1,0 +1,26 @@
+version: 1
+
+#
+# LDAPv3
+# base <cn=kolab,cn=config> with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# kolab, config
+dn: cn=kolab,cn=config
+objectClass: top
+objectClass: extensibleobject
+cn: kolab
+
+# 59.93.203.116.clients.your-server.de, kolab, config
+dn: associateddomain={{ kolab_primary_domain }},cn=kolab,cn=config
+objectClass: top
+objectClass: domainrelatedobject
+associatedDomain: {{ kolab_primary_domain }} 
+associatedDomain: localhost
+
+# search result
+
+# numResponses: 3
+# numEntries: 2

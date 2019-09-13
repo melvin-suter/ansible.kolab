@@ -50,7 +50,12 @@
     name: firewalld
     state: restarted
 
+- name: Generate ldif file
+  template:
+    src: templates/kolab_config.ldif.j2
+    dest: "{{ kolab_ldif_tmp }}"
+
 - name: Load LDAP Schema
-  command: ldapadd -x -H "{{ kolab_ldap_uri }}" -D "{{ kolab_ldap_binddn }}"  -w "{{ kolab_ldap_bindpw  }}" -f {{ kolab_ldap_schema }} 
+  command: ldapadd -x -H "{{ kolab_ldap_uri }}" -D "{{ kolab_ldap_binddn }}"  -w "{{ kolab_ldap_bindpw  }}" -f {{ kolab_ldif_tmp }} 
 
 
