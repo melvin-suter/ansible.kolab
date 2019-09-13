@@ -3,7 +3,7 @@
 kolab_primary_domain: example.org
 kolab_default_quota: 0
 kolab_primary_mail: '%(givenname)s@%(domain)s'
-kolab_policy_uid: %(surname)s.lower()
+kolab_policy_uid: '%(surname)s.lower()'
 
 kolab_mysql_pass: ChangeMeDB
 kolab_mysql_user: kolab
