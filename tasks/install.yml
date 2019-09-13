@@ -18,11 +18,16 @@
 
 - name: Create Setup Config File
   template:
-    src: templates/kolab_install.conf.j2
+    src: templates/kolab.conf.j2
     dest: "{{ kolab_setup_tmp }}"
 
 - name: Setup with Default Settings
-  command: "setup-kolab --without-ldap --with-openldap -e --mysqlserver=new -q --config={{ kolab_setup_tmp }}"
+  command: "setup-kolab --config={{ kolab_setup_tmp }}"
+
+- name: Delete Setup Config File
+  file:
+    path: "{{ kolab_setup_tmp }}"
+    state: absent
 
 - name: Setup Firewall Services
   firewalld:

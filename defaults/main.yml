@@ -3,8 +3,35 @@
 kolab_primary_domain: example.org
 kolab_default_quota: 0
 kolab_primary_mail: '%(givenname)s@%(domain)s'
+kolab_policy_uid: %(surname)s.lower()
 
 kolab_mysql_pass: ChangeMeDB
 kolab_mysql_user: kolab
 kolab_mysql_name: kolab
 kolab_cyruspw: ChangeMeIMAP
+
+kolab_ldap_uri: ldap://192.168.0.100:389
+kolab_ldap_basedn: dc=example,dc=org
+kolab_ldap_binddn: cn=Admin,{{ kolab_ldap_basedn }}
+kolab_ldap_bindpw: ChangeMeLDAP
+kolab_ldap_service_binddn: uid=kolab-service,ou=Special Users,{{ kolab_ldap_basedn }}
+kolab_ldap_service_bindpw: ChangeMeSRVLDAP
+kolab_ldap_user_basedn: ou=Users,{{ kolab_ldap_basedn }}
+kolab_ldap_user_filter: (objectclass=inetorgperson)
+kolab_ldap_group_basedn: ou=Groups,{{ kolab_ldap_basedn }}
+kolab_ldap_group_filter: (|(objectclass=groupofuniquenames)(objectclass=groupofurls))
+kolab_ldap_shared_basedn: ou=Shared Folders,{{ kolab_ldap_basedn}
+kolab_ldap_shared_filter: (objectclass=kolabsharedfolder)
+kolab_ldap_resource_basedn: ou=Resources,{{ kolab_ldap_basedn}
+kolab_ldap_resource_filter: (|(objectclass=kolabsharedfolder)(objectclass=groupofuniquenames)(objectclass=groupofurls))
+kolab_domain_basedn: cn=kolab,cn=config
+kolab_domain_filter: (&(associatedDomain=*))
+kolab_domain_name: associateddomain
+kolab_domain_rootdn: inetdomainbasedn
+kolab_quota_attribute: mailquota
+kolab_mail_attributes: mail, alias
+kolab_auth_attributes: mail, alias, uid
+kolab_mailserver_attribute: mailhost
+kolab_unique_attribute: nsuniqueid
+
+kolab_smtp_search_attributes: mail, alias

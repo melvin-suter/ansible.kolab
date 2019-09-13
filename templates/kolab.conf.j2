@@ -1,21 +1,18 @@
 [kolab]
-primary_domain = suter.dev
+primary_domain = {{ kolab_primary_domain }} 
 auth_mechanism = ldap
 imap_backend = cyrus-imap
 default_locale = en_US
 sync_interval = 300
 domain_sync_interval = 600
-policy_uid = %(surname)s.lower()
-primary_mail = %(surname)s@%(domain)s
+policy_uid = {{ kolab_policy_uid }} 
+primary_mail = {{ kolab_primary_mail }} 
 secondary_mail = {
         0: {
         "{0}.{1}@{2}": "format('%(givenname)s'[0:1].capitalize(), '%(surname)s', '%(domain)s')"
         },
         1: {
         "{0}@{1}": "format('%(uid)s', '%(domain)s')"
-        },
-        2: {
-        "{0}@{1}": "format('%(givenname)s.%(surname)s', '%(domain)s')"
         }
         }
 autocreate_folders = {
@@ -110,42 +107,42 @@ service_short = Kolab
 virtual_domains = userid
 
 [ldap]
-ldap_uri = ldap://localhost:389
+ldap_uri = {{ kolab_ldap_uri }}
 supported_controls = 0,2,3
-base_dn = dc=suter,dc=local
-bind_dn = cn=Directory Manager
-bind_pw = ldap
-service_bind_dn = uid=kolab-service,ou=Special Users,dc=suter,dc=local
-service_bind_pw = kolab
-user_base_dn = ou=People,%(base_dn)s
+base_dn = {{ kolab_ldap_basedn }}
+bind_dn = {{ kolab_ldap_binddn }}
+bind_pw = {{ kolab_ldap_bindpw }}
+service_bind_dn = {{ kolab_ldap_service_binddn }} 
+service_bind_pw = {{ kolab_ldap_service_bindpw }}
+user_base_dn = {{ kolab_ldap_user_basedn }}
 user_scope = sub
-user_filter = (objectclass=inetorgperson)
-kolab_user_base_dn = ou=People,%(base_dn)s
-kolab_user_filter = (objectclass=kolabinetorgperson)
-group_base_dn = ou=Groups,%(base_dn)s
-group_filter = (|(objectclass=groupofuniquenames)(objectclass=groupofurls))
+user_filter = {{ kolab_ldap_user_filter }} 
+kolab_user_base_dn = {{ kolab_ldap_user_basedn }}
+kolab_user_filter = {{ kolab_ldap_user_filter }} 
+group_base_dn = {{ kolab_ldap_group_basedn }} 
+group_filter = {{ kolab_ldap_group_filter }}
 group_scope = sub
 kolab_group_filter = (|(objectclass=kolabgroupofuniquenames)(objectclass=kolabgroupofurls))
-sharedfolder_base_dn = ou=Shared Folders,%(base_dn)s
-sharedfolder_filter = (objectclass=kolabsharedfolder)
+sharedfolder_base_dn = {{ kolab_ldap_shared_basedn }} 
+sharedfolder_filter = {{ kolab_ldap_shared_filter }}
 sharedfolder_acl_entry_attribute = acl
-resource_base_dn = ou=Resources,%(base_dn)s
-resource_filter = (|%(group_filter)s(objectclass=kolabsharedfolder))
-domain_base_dn = cn=kolab,cn=config
-domain_filter = (&(associatedDomain=*))
-domain_name_attribute = associateddomain
-domain_rootdn_attribute = inetdomainbasedn
-quota_attribute = mailquota
+resource_base_dn = {{ kolab_ldap_resource_basedn }} 
+resource_filter = {{ kolab_ldap_resource_filter }} 
+domain_base_dn = {{ kolab_domain_basedn }} 
+domain_filter = {{ kolab_domain_filter }}
+domain_name_attribute = {{ kolab_domain_name }}
+domain_rootdn_attribute = {{ kolab_domain_rootdn }}
+quota_attribute = {{ kolab_quota_attribute }}
 modifytimestamp_format = %Y%m%d%H%M%SZ
-unique_attribute = nsuniqueid
-mail_attributes = mail, alias
-mailserver_attribute = mailhost
-auth_attributes = mail, alias, uid
+unique_attribute = {{ kolab_unique_attribute }}
+mail_attributes = {{ kolab_mail_attributes }}
+mailserver_attribute = {{ kolab_mailserver_attribute }} 
+auth_attributes = {{ kolab_auth_attributes }}
 
 [kolab_smtp_access_policy]
-cache_uri = mysql://kolab:kolab@localhost/kolab
+cache_uri = mysql://{{ kolab_mysql_user }}:{{ kolab_mysql_pass }}@{{ kolab_mysql_host }}/{{ kolab_mysql_name }} 
 cache_retention = 86400
-address_search_attrs = mail, alias
+address_search_attrs = {{ kolab_smtp_search_attributes }} 
 delegate_sender_header = True
 alias_sender_header = True
 sender_header = True
@@ -155,14 +152,14 @@ empty_sender_hosts = 3.2.1.0/24, 6.6.6.0/24
 [kolab_wap]
 skin = default
 api_url = http://localhost:80/kolab-webadmin/api
-sql_uri = mysql://kolab:kolab@localhost/kolab
+sql_uri = mysql://{{ kolab_mysql_user }}:{{ kolab_mysql_pass }}@{{ kolab_mysql_host }}/{{ kolab_mysql_name }} 
 ssl_verify_peer = false
 ssl_verify_host = false
 
 [cyrus-imap]
 uri = imaps://localhost:993
 admin_login = cyrus-admin
-admin_password = cyrus
+admin_password = {{ kolab_cyruspw }}
 
 [cyrus-sasl]
 result_attribute = mail
