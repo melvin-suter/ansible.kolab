@@ -11,3 +11,5 @@ kolab_repo_key: https://ssl.kolabsys.com/community.asc
 kolab_mysql_host: localhost
 
 kolab_setup_tmp: /tmp/kolab_install.conf
+kolab_conf_path: /etc/kolab/kolab.conf
+kolab_ldap_schema: /usr/share/doc/kolab-schema-3.3/kolab3.ldif

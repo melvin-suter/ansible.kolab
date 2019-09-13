@@ -22,7 +22,12 @@
     dest: "{{ kolab_setup_tmp }}"
 
 - name: Setup with Default Settings
-  command: "setup-kolab --config={{ kolab_setup_tmp }}"
+  command: "setup-kolab --config {{ kolab_setup_tmp }} --without-ldap --with-openldap --mysqlserve^Cnew -q -e"
+
+- name: Create Config File
+  template:
+    src: templates/kolab.conf.j2
+    dest: "{{ kolab_conf_path }}"
 
 - name: Delete Setup Config File
   file:
@@ -44,4 +49,8 @@
   systemd:
     name: firewalld
     state: restarted
+
+- name: Load LDAP Schema
+  command: ldapadd -x -H "{{ kolab_ldap_uri }}" -D "{{ kolab_ldap_binddn }}"  -w "{{ kolab_ldap_bindpw  }}" -f {{ kolab_ldap_schema }} 
+
 
