@@ -22,7 +22,7 @@
     dest: "{{ kolab_setup_tmp }}"
 
 - name: Setup with Default Settings
-  command: "setup-kolab --config {{ kolab_setup_tmp }} --without-ldap --with-openldap --mysqlserve^Cnew -q -e"
+  command: "setup-kolab --config {{ kolab_setup_tmp }} --without-ldap --with-openldap --mysqlserver=new -q -e"
 
 - name: Create Config File
   template:
