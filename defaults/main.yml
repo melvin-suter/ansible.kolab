@@ -4,4 +4,7 @@ kolab_primary_domain: example.org
 kolab_default_quota: 0
 kolab_primary_mail: '%(givenname)s@%(domain)s'
 
-
+kolab_mysql_pass: ChangeMeDB
+kolab_mysql_user: kolab
+kolab_mysql_name: kolab
+kolab_cyruspw: ChangeMeIMAP

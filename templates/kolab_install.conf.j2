@@ -1,0 +1,14 @@
+[kolab_smtp_access_policy]
+cache_uri = mysql://{{ kolab_mysql_user }}:{{ kolab_mysql_pass }}@{{ kolab_mysql_host }}/{{ kolab_mysql_name }}
+
+[kolab_wap]
+api_url = http://localhost:80/kolab-webadmin/api
+sql_uri = mysql://{{ kolab_mysql_user }}:{{ kolab_mysql_pass }}@{{ kolab_mysql_host }}/{{ kolab_mysql_name }}
+
+[cyrus-imap]
+admin_password = {{ kolab_cyruspw }}
+
+[{{ kolab_primary_domain }}]
+default_quota = {{ kolab_default_quota }}
+primary_mail = {{ kolab_primary_mail }} 
+

@@ -16,9 +16,13 @@
     name: "{{ kolab_packages }}"
     state: present
 
-- name: Setup Default Settings
-  command: "setup-kolab --without-ldap --with-openldap -e --mysqlserver=new -q "
+- name: Create Setup Config File
+  template:
+    src: templates/kolab_install.conf.j2
+    dest: "{{ kolab_setup_tmp }}"
 
+- name: Setup with Default Settings
+  command: "setup-kolab --without-ldap --with-openldap -e --mysqlserver=new -q --config={{ kolab_setup_tmp }}"
 
 - name: Setup Firewall Services
   firewalld:
