@@ -21,6 +21,19 @@
     src: templates/kolab.conf.j2
     dest: "{{ kolab_setup_tmp }}"
 
+- name: Setup with Default Settings
+  command: "setup-kolab --config {{ kolab_setup_tmp }} --without-ldap --with-openldap --mysqlserver=new -q -e"
+
+- name: Create Config File
+  template:
+    src: templates/kolab.conf.j2
+    dest: "{{ kolab_conf_path }}"
+
+- name: Delete Setup Config File
+  file:
+    path: "{{ kolab_setup_tmp }}"
+    state: absent
+
 - name: Setup Firewall Services
   firewalld:
     port: "{{ item }}"
@@ -36,5 +49,13 @@
   systemd:
     name: firewalld
     state: restarted
+
+- name: Generate ldif file
+  template:
+    src: templates/kolab_config.ldif.j2
+    dest: "{{ kolab_ldif_tmp }}"
+
+- name: Load LDAP Schema
+  command: ldapadd -x -H "{{ kolab_ldap_uri }}" -D "{{ kolab_ldap_binddn }}"  -w "{{ kolab_ldap_bindpw  }}" -f {{ kolab_ldif_tmp }} 
 
 
